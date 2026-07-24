@@ -1125,6 +1125,7 @@ namespace MudBlazor
             await SetTextAndUpdateValueAsync(null, false);
             _selectedListItemIndex = 0;
             StateHasChanged();
+            await OpenMenuAsync();
             await OnClearButtonClick.InvokeAsync(e);
             await BeginValidateAsync();
         }
