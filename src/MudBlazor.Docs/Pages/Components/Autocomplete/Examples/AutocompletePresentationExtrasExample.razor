@@ -18,8 +18,9 @@
     </MudItem>
     <MudItem xs="12" sm="6" md="4">
         <MudAutocomplete T="Element" Label="Periodic Table Element" @bind-Value="value2"
-                         SearchFunc="@SearchEmpty" ToStringFunc="@(e=> e==null?null : $"{e.Name} ({e.Sign})")">
                          Clearable="true"
+                         HelperText="Type something that is not an element, like 'Water'"
+                         SearchFunc="@Search" ToStringFunc="@(e=> e==null?null : $"{e.Name} ({e.Sign})")">
             <NoItemsTemplate>
                 <MudText Align="Align.Center" Class="px-4 py-1">
                     No items found
@@ -55,11 +56,5 @@
     private async Task<IEnumerable<Element>> Search(string value, CancellationToken token)
     {
         return await httpClient.GetFromJsonAsync<List<Element>>($"webapi/periodictable/{value}", token);
-    }
-
-    private async Task<IEnumerable<Element>> SearchEmpty(string value, CancellationToken token)
-    {
-        await Task.Delay(5, token);
-        return Array.Empty<Element>();
     }
 }
